@@ -23,9 +23,15 @@ class User extends Authenticatable
         'email',
         'password',
         'mobile_number',
+        'wallet_balance',
+        'avatar',
+        'favorites',
         'dob',
         'otp',
         'otp_expires_at',
+        'deletion_requested',
+        'deletion_reason',
+        'deletion_requested_at',
     ];
 
     /**
@@ -50,6 +56,9 @@ class User extends Authenticatable
             'password' => 'hashed',
             'dob' => 'date',
             'otp_expires_at' => 'datetime',
+            'deletion_requested_at' => 'datetime',
+            'deletion_requested' => 'boolean',
+            'wallet_balance' => 'float',
         ];
     }
 }

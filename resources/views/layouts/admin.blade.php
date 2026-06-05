@@ -49,6 +49,10 @@
                         <span class="material-symbols-outlined">person</span>
                         <span>Customers</span>
                     </a>
+                    <a href="{{ route('admin.orders.index') }}" class="nav-item {{ request()->routeIs('admin.orders.*') ? 'active' : '' }}">
+                        <span class="material-symbols-outlined">shopping_cart</span>
+                        <span>Orders</span>
+                    </a>
                     <a href="{{ route('admin.weekly-favorites.index') }}" class="nav-item {{ request()->routeIs('admin.weekly-favorites.*') ? 'active' : '' }}">
                         <span class="material-symbols-outlined">star</span>
                         <span>Weekly Favorites</span>
@@ -56,6 +60,10 @@
                     <a href="{{ route('admin.popular-items.index') }}" class="nav-item {{ request()->routeIs('admin.popular-items.*') ? 'active' : '' }}">
                         <span class="material-symbols-outlined">trending_up</span>
                         <span>Popular Items</span>
+                    </a>
+                    <a href="{{ route('admin.free-drinks.index') }}" class="nav-item {{ request()->routeIs('admin.free-drinks.*') ? 'active' : '' }}">
+                        <span class="material-symbols-outlined">local_cafe</span>
+                        <span>Free Drinks</span>
                     </a>
                 @else
                     <a href="{{ route('admin.store-dashboard') }}" class="nav-item {{ request()->routeIs('admin.store-dashboard') ? 'active' : '' }}">
@@ -86,7 +94,11 @@
                         <span class="material-symbols-outlined">trending_up</span>
                         <span>Popular Items</span>
                     </a>
-                    <a href="#" class="nav-item">
+                    <a href="{{ route('admin.free-drinks.index') }}" class="nav-item {{ request()->routeIs('admin.free-drinks.*') ? 'active' : '' }}">
+                        <span class="material-symbols-outlined">local_cafe</span>
+                        <span>Free Drinks</span>
+                    </a>
+                    <a href="{{ route('admin.orders.index') }}" class="nav-item {{ request()->routeIs('admin.orders.*') ? 'active' : '' }}">
                         <span class="material-symbols-outlined">shopping_cart</span>
                         <span>Orders</span>
                     </a>
@@ -97,7 +109,7 @@
                     <span id="theme-text">Switch to Dark Mode</span>
                 </div>
 
-                <a href="#" class="nav-item">
+                <a href="{{ route('admin.settings.index') }}" class="nav-item {{ request()->routeIs('admin.settings.*') ? 'active' : '' }}">
                     <span class="material-symbols-outlined">settings</span>
                     <span>Settings</span>
                 </a>

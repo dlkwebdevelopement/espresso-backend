@@ -18,7 +18,7 @@ class PopularItemController extends Controller
             $query->where('store_id', $admin->store_id);
         }
 
-        $popularItems = $query->with('store', 'subCategory')->get();
+        $popularItems = $query->with('store', 'subCategory')->paginate(6);
 
         // Get list of items NOT currently popular to assign
         $assignQuery = Item::where('is_popular', false);

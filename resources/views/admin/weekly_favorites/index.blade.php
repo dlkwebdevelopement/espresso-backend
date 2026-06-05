@@ -47,6 +47,13 @@
                         @endforelse
                     </tbody>
                 </table>
+
+                <!-- Pagination -->
+                @if($favorites->hasPages())
+                    <div style="padding: 20px; border-top: 1px solid var(--border); display: flex; justify-content: center; background: rgba(0,0,0,0.2);">
+                        {{ $favorites->links('pagination::bootstrap-4') }}
+                    </div>
+                @endif
             </div>
         </div>
 

@@ -23,10 +23,10 @@ class OtpController extends Controller
             'otp_expires_at' => Carbon::now()->addMinutes(10),
         ]);
 
-        // Send Email (Mocking for now if mail not setup, or use standard Mail)
-        // Mail::raw("Your Espresso login OTP is: $otp", function($message) use ($user) {
-        //     $message->to($user->email)->subject('Login OTP - Espresso');
-        // });
+        // Send Email
+        Mail::raw("Your Espresso login OTP is: $otp", function($message) use ($user) {
+            $message->to($user->email)->subject('Login OTP - Espresso');
+        });
         
         // For testing, we'll log it and also return it if in debug mode (optional)
         \Log::info("OTP for {$user->email}: $otp");

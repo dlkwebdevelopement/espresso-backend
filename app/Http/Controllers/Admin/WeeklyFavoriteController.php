@@ -18,7 +18,7 @@ class WeeklyFavoriteController extends Controller
             $query->where('store_id', $admin->store_id);
         }
 
-        $favorites = $query->with('store', 'subCategory')->get();
+        $favorites = $query->with('store', 'subCategory')->paginate(6);
 
         // Get list of items NOT currently favorites to assign
         $assignQuery = Item::where('is_weekly_favorite', false);
@@ -45,6 +45,15 @@ class WeeklyFavoriteController extends Controller
         }
 
         $item->update(['is_weekly_favorite' => true]);
+
+        // Create global notification for this weekly favorite item
+        \App\Models\Notification::create([
+            'user_id' => null, // null means global broadcast
+            'type' => 'promo',
+            'title' => 'Weekly Favorite Alert!',
+            'message' => 'Checkout the new ' . $item->name . ', featured as our weekly favorite! Get 10% off.',
+            'read' => false,
+        ]);
 
         return redirect()->route('admin.weekly-favorites.index')->with('success', 'Product assigned to Weekly Favorites!');
     }

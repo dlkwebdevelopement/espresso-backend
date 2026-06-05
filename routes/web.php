@@ -41,12 +41,20 @@ Route::prefix('admin')->name('admin.')->group(function () {
             Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
             Route::resource('stores', \App\Http\Controllers\Admin\StoreController::class);
             Route::resource('admins', \App\Http\Controllers\Admin\AdminManagementController::class);
+            
+            // Settings
+            Route::get('settings', [\App\Http\Controllers\Admin\SettingController::class, 'index'])->name('settings.index');
+            Route::post('settings', [\App\Http\Controllers\Admin\SettingController::class, 'update'])->name('settings.update');
         });
 
         Route::resource('categories', \App\Http\Controllers\Admin\CategoryController::class);
         Route::resource('sub_categories', \App\Http\Controllers\Admin\SubCategoryController::class);
         Route::resource('items', \App\Http\Controllers\Admin\ItemController::class);
         Route::resource('customers', \App\Http\Controllers\Admin\CustomerController::class);
+        
+        Route::get('orders', [\App\Http\Controllers\Admin\OrderController::class, 'index'])->name('orders.index');
+        Route::put('orders/{order}/status', [\App\Http\Controllers\Admin\OrderController::class, 'updateStatus'])->name('orders.status');
+        Route::post('orders/{order}/refund', [\App\Http\Controllers\Admin\OrderController::class, 'refund'])->name('orders.refund');
         
         Route::get('weekly-favorites', [\App\Http\Controllers\Admin\WeeklyFavoriteController::class, 'index'])->name('weekly-favorites.index');
         Route::post('weekly-favorites', [\App\Http\Controllers\Admin\WeeklyFavoriteController::class, 'store'])->name('weekly-favorites.store');
@@ -55,6 +63,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('popular-items', [\App\Http\Controllers\Admin\PopularItemController::class, 'index'])->name('popular-items.index');
         Route::post('popular-items', [\App\Http\Controllers\Admin\PopularItemController::class, 'store'])->name('popular-items.store');
         Route::delete('popular-items/{id}', [\App\Http\Controllers\Admin\PopularItemController::class, 'destroy'])->name('popular-items.destroy');
+        
+        Route::resource('free-drinks', \App\Http\Controllers\Admin\FreeDrinkController::class);
 
         // Store Manager Only
         Route::middleware(['store_manager'])->group(function () {

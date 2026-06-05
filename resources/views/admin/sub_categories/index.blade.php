@@ -66,5 +66,12 @@
                 @endforelse
             </tbody>
         </table>
+
+        <!-- Pagination -->
+        @if($subCategories->hasPages())
+            <div style="padding: 20px; border-top: 1px solid var(--border); display: flex; justify-content: center; background: rgba(0,0,0,0.2);">
+                {{ $subCategories->links('pagination::bootstrap-4') }}
+            </div>
+        @endif
     </div>
 @endsection

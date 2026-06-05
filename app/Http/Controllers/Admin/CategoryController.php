@@ -20,7 +20,7 @@ class CategoryController extends Controller implements HasMiddleware
 
     public function index()
     {
-        $categories = Category::withCount('subCategories')->get();
+        $categories = Category::withCount('subCategories')->paginate(10);
         return view('admin.categories.index', compact('categories'));
     }
 

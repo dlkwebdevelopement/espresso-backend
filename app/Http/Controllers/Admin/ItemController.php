@@ -24,7 +24,7 @@ class ItemController extends Controller
             $query->where('store_id', $admin->store_id);
         }
 
-        $items = $query->latest()->get();
+        $items = $query->latest()->paginate(10);
         return view('admin.items.index', compact('items'));
     }
 
@@ -69,11 +69,11 @@ class ItemController extends Controller
             $imageName = time() . '_' . $image->getClientOriginalName();
 
             // Ensure directory exists in PUBLIC folder
-            if (!file_exists(public_path('uploads/items'))) {
-                mkdir(public_path('uploads/items'), 0755, true);
+            if (!file_exists(('uploads/items'))) {
+                mkdir(('uploads/items'), 0755, true);
             }
 
-            $image->move(public_path('uploads/items'), $imageName);
+            $image->move(('uploads/items'), $imageName);
             $itemData['image_path'] = 'uploads/items/' . $imageName;
         }
 
@@ -145,17 +145,17 @@ class ItemController extends Controller
             if (!$request->file('image')->isValid()) {
                 return back()->withErrors(['image' => 'The uploaded image is invalid or exceeds server limits.'])->withInput();
             }
-            if ($item->image_path && file_exists(public_path($item->image_path))) {
-                unlink(public_path($item->image_path));
+            if ($item->image_path && file_exists(($item->image_path))) {
+                unlink(($item->image_path));
             }
             $image = $request->file('image');
             $imageName = time() . '_' . $image->getClientOriginalName();
 
-            if (!file_exists(public_path('uploads/items'))) {
-                mkdir(public_path('uploads/items'), 0755, true);
+            if (!file_exists(('uploads/items'))) {
+                mkdir(('uploads/items'), 0755, true);
             }
 
-            $image->move(public_path('uploads/items'), $imageName);
+            $image->move(('uploads/items'), $imageName);
             $itemData['image_path'] = 'uploads/items/' . $imageName;
         }
 
@@ -193,8 +193,8 @@ class ItemController extends Controller
             abort(403);
         }
 
-        if ($item->image_path && file_exists(public_path($item->image_path))) {
-            unlink(public_path($item->image_path));
+        if ($item->image_path && file_exists(($item->image_path))) {
+            unlink(($item->image_path));
         }
         $item->delete();
 

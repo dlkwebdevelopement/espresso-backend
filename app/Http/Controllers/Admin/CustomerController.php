@@ -10,9 +10,15 @@ use Illuminate\Support\Str;
 
 class CustomerController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $customers = User::latest()->paginate(15);
+        $query = User::query();
+
+        if ($request->filter === 'deletion_requested') {
+            $query->where('deletion_requested', true);
+        }
+
+        $customers = $query->latest()->paginate(15);
         return view('admin.customers.index', compact('customers'));
     }
 
