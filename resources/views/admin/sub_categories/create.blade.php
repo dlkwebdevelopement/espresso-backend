@@ -6,7 +6,7 @@
 
 @section('content')
     <div class="login-card" style="max-width: 600px; margin: 0 auto; animation: none;">
-        <form action="{{ route('admin.sub_categories.store') }}" method="POST">
+        <form action="{{ route('admin.sub_categories.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             
             <div class="form-group">
@@ -27,6 +27,15 @@
             </div>
 
             <div class="form-group">
+                <label class="form-label">Sub-Category Image</label>
+                <div style="margin-bottom: 10px; display: none;" id="imagePreviewContainer">
+                    <img id="imagePreview" src="" alt="Image Preview" style="max-height: 100px; border-radius: 8px; border: 1px solid var(--border);">
+                </div>
+                <input type="file" name="image" class="form-control" accept="image/*" onchange="previewImage(this)">
+                @error('image') <div class="error-message">{{ $message }}</div> @enderror
+            </div>
+
+            <div class="form-group">
                 <label class="remember-me" style="margin-top: 20px;">
                     <input type="checkbox" name="is_active" checked style="display: none;">
                     <div class="checkbox-custom"></div>
@@ -40,4 +49,19 @@
             </div>
         </form>
     </div>
+
+    <script>
+        function previewImage(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    var container = document.getElementById('imagePreviewContainer');
+                    var preview = document.getElementById('imagePreview');
+                    preview.src = e.target.result;
+                    container.style.display = 'block';
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
 @endsection

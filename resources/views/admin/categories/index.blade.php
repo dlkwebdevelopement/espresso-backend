@@ -17,6 +17,7 @@
         <table style="width: 100%; border-collapse: collapse; color: var(--text);">
             <thead style="background: rgba(255, 255, 255, 0.05);">
                 <tr>
+                    <th style="text-align: left; padding: 20px; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted);">Image</th>
                     <th style="text-align: left; padding: 20px; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted);">Name</th>
                     <th style="text-align: left; padding: 20px; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted);">Slug</th>
                     <th style="text-align: left; padding: 20px; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted);">Sub-Categories</th>
@@ -29,6 +30,15 @@
             <tbody>
                 @forelse($categories as $category)
                     <tr style="border-bottom: 1px solid var(--border); transition: background 0.3s;" onmouseover="this.style.background='rgba(255, 222, 173, 0.03)'" onmouseout="this.style.background='none'">
+                        <td style="padding: 20px;">
+                            @if($category->image)
+                                <img src="{{ $category->image_url }}" alt="{{ $category->name }}" style="width: 40px; height: 40px; object-fit: cover; border-radius: 8px; border: 1px solid var(--border);">
+                            @else
+                                <div style="width: 40px; height: 40px; background: rgba(255,255,255,0.05); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: var(--text-muted); border: 1px solid var(--border);">
+                                    <span class="material-symbols-outlined" style="font-size: 20px;">image</span>
+                                </div>
+                            @endif
+                        </td>
                         <td style="padding: 20px; font-weight: 600;">{{ $category->name }}</td>
                         <td style="padding: 20px; color: var(--text-muted);">{{ $category->slug }}</td>
                         <td style="padding: 20px;">
